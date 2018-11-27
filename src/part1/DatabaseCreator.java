@@ -6,12 +6,21 @@ public class DatabaseCreator {
     /*
      * Create Menu table method
      */
-    public boolean createMenuTable() {
-        String createTableStatement = "CREATE TABLE Menu {" +
+    public static boolean createMenuTable(Connection dbConn) {
+        String createTableStatement = "CREATE TABLE Menu (" +
                 "mid            INTEGER," +
                 "description    CHAR(100)," +
                 "costprice      INTEGER" +
-                "}";
+                ");";
+
+        try {
+            PreparedStatement preparedStatement = dbConn.prepareStatement(createTableStatement);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
 
         // Return true to show that creation has been successful
         return true;
@@ -20,12 +29,20 @@ public class DatabaseCreator {
     /*
      * Create Entertainment table method
      */
-    public boolean createEntertainmentTable() {
-        String createTableStatement = "CREATE TABLE Entertainment {" +
+    public static boolean createEntertainmentTable(Connection dbConn) {
+        String createTableStatement = "CREATE TABLE Entertainment (" +
                 "eid            INTEGER," +
                 "description    CHAR(100)," +
                 "costprice      INTEGER" +
-                "}";
+                ")";
+        try {
+            PreparedStatement preparedStatement = dbConn.prepareStatement(createTableStatement);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
 
         // Return true to show that creation has been successful
         return true;
@@ -34,12 +51,20 @@ public class DatabaseCreator {
     /*
      * Create Venue table method
      */
-    public boolean createVenueTable() {
-        String createTableStatement = "CREATE TABLE Venue {" +
+    public static boolean createVenueTable(Connection dbConn) {
+        String createTableStatement = "CREATE TABLE Venue (" +
                 "vid            INTEGER," +
                 "description    CHAR(100)," +
                 "costprice      INTEGER" +
-                "}";
+                ")";
+        try {
+            PreparedStatement preparedStatement = dbConn.prepareStatement(createTableStatement);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
 
         // Return true to show that creation has been successful
         return true;
@@ -48,8 +73,8 @@ public class DatabaseCreator {
     /*
      * Create Party table method
      */
-    public boolean createPartyTable() {
-        String createTableStatement = "CREATE TABLE Party {" +
+    public static boolean createPartyTable(Connection dbConn) {
+        String createTableStatement = "CREATE TABLE Party (" +
                 "pid            INTEGER," +
                 "name           CHAR(20)," +
                 "mid            INTEGER," +
@@ -58,7 +83,15 @@ public class DatabaseCreator {
                 "price          INTEGER," +
                 "timing         TIMESTAMP," +
                 "numberofguests INTEGER" +
-                "}";
+                ")";
+        try {
+            PreparedStatement preparedStatement = dbConn.prepareStatement(createTableStatement);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
 
         // Return true to show that creation has been successful
         return true;
