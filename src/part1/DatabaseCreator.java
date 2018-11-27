@@ -9,7 +9,7 @@ public class DatabaseCreator {
     private static boolean createMenuTable(Connection dbConn) {
         String createTableStatement = "CREATE TABLE Menu (" +
                 "mid            INTEGER     NOT NULL UNIQUE," +
-                "description    CHAR(100)," +
+                "name           CHAR(20)," +
                 "costprice      INTEGER," +
                 " " +
                 "PRIMARY KEY (mid)" +
@@ -113,16 +113,18 @@ public class DatabaseCreator {
     * Create all tables method
     */
     public static boolean createAllTables(Connection dbConn) {
+        // Try to create tables
         boolean createMenuTable = createMenuTable(dbConn);
         boolean createVenueTable = createVenueTable(dbConn);
         boolean createEntertainmentTable = createEntertainmentTable(dbConn);
         boolean createPartyTable = createPartyTable(dbConn);
 
+        // Check if all tables were created
         if ( createMenuTable && createVenueTable && createEntertainmentTable && createPartyTable ) {
             System.out.println("Tables have been created successfully!");
             return true;
         } else {
-            // In case
+            // In case of failing
             System.out.println("Failed to create tables.");
         }
         return false;
@@ -133,9 +135,10 @@ public class DatabaseCreator {
      * Delete all tables method
      */
     public static boolean deleteAllTables(Connection dbConn) {
-        String createTableStatement = "DROP TABLE Menu, Entertainment, Venue, Party;";
+        // Try to drop all tables
+        String dropTablesStatement = "DROP TABLE Menu, Entertainment, Venue, Party;";
         try {
-            PreparedStatement preparedStatement = dbConn.prepareStatement(createTableStatement);
+            PreparedStatement preparedStatement = dbConn.prepareStatement(dropTablesStatement);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

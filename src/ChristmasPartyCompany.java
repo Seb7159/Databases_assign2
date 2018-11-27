@@ -28,7 +28,7 @@ public class ChristmasPartyCompany {
             // Else continue with 2nd part
         }
         else {
-            System.out.println("Failed to make connection/");
+            System.out.println("Failed to make connection.");
             return;
         }
 
@@ -36,6 +36,18 @@ public class ChristmasPartyCompany {
         // PART 2: Create and populate the database
         // Creation done in part 1
         // Populating the database
+        boolean populateTables = DatabasePopulator.populateTables(conn);
 
+        // Check if tables were not populated
+        if ( !populateTables ) {
+            System.out.println("Tables could not be populated.");
+            return;
+        } else {
+            System.out.println("Tables have been populated with random values!");
+        }
+        // Else continue with 3rd part
+
+
+        // PART 3: tba
     }
 }
