@@ -1,0 +1,46 @@
+// Create Menu Table
+CREATE TABLE Menu
+                mid            INTEGER     NOT NULL UNIQUE,
+                description    CHAR(100),
+                costprice      INTEGER,
+
+                PRIMARY KEY (mid)
+                );
+
+
+// Create Venue Table
+CREATE TABLE Venue
+                vid            INTEGER     NOT NULL UNIQUE,
+                description    CHAR(100),
+                costprice      INTEGER,
+
+                PRIMARY KEY (vid)
+                );
+
+
+// Create Entertainment Table
+CREATE TABLE Entertainment
+                eid            INTEGER     NOT NULL UNIQUE,
+                description    CHAR(100),
+                costprice      INTEGER,
+
+                PRIMARY KEY (eid)
+                );
+
+
+// Create Party Table
+CREATE TABLE Party
+                pid            INTEGER     NOT NULL UNIQUE,
+                name           CHAR(20),
+                mid            INTEGER,
+                vid            INTEGER,
+                eid            INTEGER,
+                price          INTEGER,
+                timing         TIMESTAMP,
+                numberofguests INTEGER,
+
+                PRIMARY KEY (pid),
+                FOREIGN KEY (mid) REFERENCES Menu(mid),
+                FOREIGN KEY (vid) REFERENCES Venue(vid),
+                FOREIGN KEY (eid) REFERENCES Entertainment(eid)
+                );
