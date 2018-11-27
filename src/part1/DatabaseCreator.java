@@ -91,9 +91,15 @@ public class DatabaseCreator {
                 "numberofguests INTEGER," +
                 " " +
                 "PRIMARY KEY (pid)," +
-                "FOREIGN KEY (mid) REFERENCES Menu(mid)," +
-                "FOREIGN KEY (vid) REFERENCES Venue(vid)," +
+                "FOREIGN KEY (mid) REFERENCES Menu(mid)" +
+                "                   ON DELETE CASCADE" +
+                "                   ON UPDATE CASCADE," +
+                "FOREIGN KEY (vid) REFERENCES Venue(vid)" +
+                "                   ON DELETE CASCADE" +
+                "                   ON UPDATE CASCADE," +
                 "FOREIGN KEY (eid) REFERENCES Entertainment(eid)" +
+                "                   ON DELETE CASCADE" +
+                "                   ON UPDATE CASCADE" +
                 ");";
         try {
             PreparedStatement preparedStatement = dbConn.prepareStatement(createTableStatement);
@@ -136,7 +142,7 @@ public class DatabaseCreator {
      */
     public static boolean deleteAllTables(Connection dbConn) {
         // Try to drop all tables
-        String dropTablesStatement = "DROP TABLE Menu, Entertainment, Venue, Party;";
+        String dropTablesStatement = "DROP TABLE IF EXISTS Menu, Entertainment, Venue, Party CASCADE;";
         try {
             PreparedStatement preparedStatement = dbConn.prepareStatement(dropTablesStatement);
 

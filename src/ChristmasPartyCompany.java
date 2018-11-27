@@ -1,5 +1,6 @@
 import part1.*;
 import part2.*;
+import part3.*;
 
 import java.sql.*;
 import javax.sql.*;
@@ -48,6 +49,12 @@ public class ChristmasPartyCompany {
         // Else continue with 3rd part
 
 
-        // PART 3: tba
+        // PART 3: The JDBC Interface
+        InterfaceMenu.start();
+
+
+        // END PART
+        System.out.println("Program has ended successfuly, have a great day!");
+        return;
     }
 }
