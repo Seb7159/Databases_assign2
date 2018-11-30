@@ -39,7 +39,7 @@ public class ChristmasPartyCompany {
         // Populating the database
         boolean populateTables = DatabasePopulator.populateTables(conn);
 
-        // Check if tables were not populated
+        // Check if tables were not populated TODO: populate with 10 sensitive data each table
         if ( !populateTables ) {
             System.out.println("Tables could not be populated.");
             return;
@@ -50,7 +50,7 @@ public class ChristmasPartyCompany {
 
 
         // PART 3: The JDBC Interface
-        InterfaceMenu.start();
+        InterfaceMenu.start(conn);
 
 
         // END PART

@@ -1,9 +1,16 @@
 package part3;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class InterfaceMenu {
+    // Connection to database the interace is linked to
+    private static Connection dbConn = null;
+
     /*
     * Display menu method
     */
@@ -20,8 +27,46 @@ public class InterfaceMenu {
     /*
     * Print report for given party method
     */
-    private static void printPartyReport(int partyNumber) {
+    private static void printPartyReport(int partyNumber) throws SQLException {
+        String getPartyStatement = "SELECT pid, name, vid, mid, eid, price, numberofguests FROM Party WHERE pid = " + partyNumber;
 
+        PreparedStatement preparedStatementParty = dbConn.prepareStatement(getPartyStatement);
+        ResultSet resultSet = preparedStatementParty.executeQuery();
+
+        while(resultSet.next()) {
+            String name = resultSet.getString(2);
+            int vid = resultSet.getInt(3);
+            int mid = resultSet.getInt(4);
+            int eid = resultSet.getInt(5);
+            int price = resultSet.getInt(6);
+            int noOfG = resultSet.getInt(7);
+
+            // Get menu name
+            String menu_name = "";
+            PreparedStatement preparedStatementMenu = dbConn.prepareStatement("SELECT mid, name FROM Menu WHERE mid = " + vid);
+            ResultSet resultSetMenu = preparedStatementMenu.executeQuery();
+            while(resultSetMenu.next()) {
+                menu_name = resultSetMenu.getString(2);
+            }
+
+            // Get venu description
+            String venue_description = "";
+            PreparedStatement preparedStatementVenue = dbConn.prepareStatement("SELECT vid, description FROM Venue WHERE vid = " + vid);
+            ResultSet resultSetVenue = preparedStatementVenue.executeQuery();
+            while(resultSetVenue.next()) {
+                venue_description = resultSetVenue.getString(2);
+            }
+
+            // Get menu name
+            String ent_descriptionn = "";
+            PreparedStatement preparedStatementEnt = dbConn.prepareStatement("SELECT eid, description FROM Entertainment WHERE eid = " + vid);
+            ResultSet resultSetEnt = preparedStatementEnt.executeQuery();
+            while(resultSetEnt.next()) {
+                ent_descriptionn = resultSetEnt.getString(2);
+            }
+
+            System.out.println(menu_name + venue_description + ent_descriptionn);
+        }
     }
 
     /*
@@ -42,14 +87,15 @@ public class InterfaceMenu {
     /*
     * Start the interface method
     */
-    public static void start() {
+    public static void start(Connection conn) {
+        dbConn = conn;
         int optionMenu = 0;
         Scanner in = new Scanner(System.in);
 
         // Pause to get to menu
         System.out.print("\n\nPress ENTER to start the interface. ");
         in.nextLine();
-        
+
         do {
             displayMenu();
             optionMenu = in.nextInt();
@@ -62,7 +108,11 @@ public class InterfaceMenu {
                 int partyNumber = in.nextInt();
 
                 // Call method
-                printPartyReport(partyNumber);
+                try {
+                    printPartyReport(partyNumber);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
 
             } else if ( optionMenu == 2 ) {
                 // Request for menu item number
