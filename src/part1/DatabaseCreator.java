@@ -59,7 +59,7 @@ public class DatabaseCreator {
         String createTableStatement = "CREATE TABLE Venue (" +
                 "vid            INTEGER     NOT NULL UNIQUE," +
                 "description    CHAR(100)," +
-                "costprice      INTEGER," +
+                "venueprice      INTEGER," +
                 " " +
                 "PRIMARY KEY (vid)" +
                 ");";

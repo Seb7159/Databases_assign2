@@ -43,29 +43,38 @@ public class InterfaceMenu {
 
             // Get menu name
             String menu_name = "";
-            PreparedStatement preparedStatementMenu = dbConn.prepareStatement("SELECT mid, name FROM Menu WHERE mid = " + vid);
+            int menu_price = 0;
+            PreparedStatement preparedStatementMenu = dbConn.prepareStatement("SELECT mid, name, costprice FROM Menu WHERE mid = " + vid);
             ResultSet resultSetMenu = preparedStatementMenu.executeQuery();
             while(resultSetMenu.next()) {
                 menu_name = resultSetMenu.getString(2);
+                menu_price = resultSetMenu.getInt(3);
             }
 
             // Get venu description
             String venue_description = "";
-            PreparedStatement preparedStatementVenue = dbConn.prepareStatement("SELECT vid, description FROM Venue WHERE vid = " + vid);
+            int venue_price = 0;
+            PreparedStatement preparedStatementVenue = dbConn.prepareStatement("SELECT vid, description, venueprice FROM Venue WHERE vid = " + vid);
             ResultSet resultSetVenue = preparedStatementVenue.executeQuery();
             while(resultSetVenue.next()) {
                 venue_description = resultSetVenue.getString(2);
+                venue_price = resultSetVenue.getInt(3);
             }
 
             // Get menu name
-            String ent_descriptionn = "";
-            PreparedStatement preparedStatementEnt = dbConn.prepareStatement("SELECT eid, description FROM Entertainment WHERE eid = " + vid);
+            String ent_description = "";
+            int ent_price = 0;
+            PreparedStatement preparedStatementEnt = dbConn.prepareStatement("SELECT eid, description, costprice FROM Entertainment WHERE eid = " + vid);
             ResultSet resultSetEnt = preparedStatementEnt.executeQuery();
             while(resultSetEnt.next()) {
-                ent_descriptionn = resultSetEnt.getString(2);
+                ent_description = resultSetEnt.getString(2);
+                ent_price = resultSetEnt.getInt(3);
             }
 
-            System.out.println(menu_name + venue_description + ent_descriptionn);
+            int total_cost_price = menu_price * noOfG + venue_price + ent_price;
+            System.out.println(total_cost_price);
+
+            // Display the data and return TODO 
         }
     }
 
