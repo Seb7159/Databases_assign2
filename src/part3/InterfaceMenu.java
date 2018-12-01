@@ -165,11 +165,42 @@ public class InterfaceMenu {
     /*
     * Create new party method
     */
-    private static void createParty() {
-        
+    private static boolean createParty(Scanner in) {
+        // Create new values
+        int pid = 0, mid = 0, vid = 0, eid = 0, price = 0, nog = 0;
+        String name = "", dat = "";
 
-        // Return
-        return;
+        // Prompt user for all values
+        System.out.println("Input party ID: "); pid = in.nextInt(); in.nextLine();
+        System.out.println("Input party name: "); name = in.nextLine();
+        System.out.println("Input menu ID: "); mid = in.nextInt();
+        System.out.println("Input venue ID: "); vid = in.nextInt();
+        System.out.println("Input entertainment ID: "); eid = in.nextInt();
+        System.out.println("Input party price: "); price = in.nextInt();
+        System.out.println("Input party day: "); dat += in.nextInt() + "-";
+        System.out.println("Input party month: "); dat += in.nextInt() + "-";
+        System.out.println("Input party year: "); dat += in.nextInt() + " ";
+        System.out.println("Input party hour: "); dat += in.nextInt() + ":00:00";
+        System.out.println("Input number of guests: "); nog = in.nextInt();
+
+        // Create string to update table with new values
+        String updateStatement = "INSERT INTO Party " +
+                "VALUES (" + pid + ", '" + name + "', " + mid + ", " + vid + ", " + eid + ", " +
+                price + ", '" + dat + "', " + nog +
+                ");";
+
+        // Execute query
+        try {
+            PreparedStatement updateTable = dbConn.prepareStatement(updateStatement);
+
+            updateTable.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // Return true if it worked correctly
+        return true;
     }
 
 
@@ -217,7 +248,13 @@ public class InterfaceMenu {
 
             } else if ( optionMenu == 3 ) {
                 // Call method
-                createParty();
+                boolean promptWorked = createParty(in);
+
+                if ( promptWorked == true ) {
+                    System.out.println("\nNew party added!\n\n");
+                } else {
+                    System.out.println("\nWARNING! Party was not added because of an error in your input values.\n\n");
+                }
 
             } else if ( optionMenu == 4 ) {
                 // This will break the while loop
@@ -227,8 +264,8 @@ public class InterfaceMenu {
             }
 
             // Pause
-            System.out.println("\n\nWrite a number then press ENTER to return to menu. ");
-            in.nextInt();
+            System.out.println("\n\nPress ENTER to return to menu. ");
+            in.nextLine(); in.nextLine();
         } while( optionMenu != 4 );
     }
 }
