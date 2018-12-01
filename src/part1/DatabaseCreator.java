@@ -9,7 +9,7 @@ public class DatabaseCreator {
     private static boolean createMenuTable(Connection dbConn) {
         String createTableStatement = "CREATE TABLE Menu (" +
                 "mid            INTEGER     NOT NULL UNIQUE," +
-                "name           CHAR(20)," +
+                "description    CHAR(100)," +
                 "costprice      INTEGER," +
                 " " +
                 "PRIMARY KEY (mid)" +
@@ -57,8 +57,8 @@ public class DatabaseCreator {
      */
     private static boolean createVenueTable(Connection dbConn) {
         String createTableStatement = "CREATE TABLE Venue (" +
-                "vid            INTEGER     NOT NULL UNIQUE," +
-                "description    CHAR(100)," +
+                "vid             INTEGER     NOT NULL UNIQUE," +
+                "name            CHAR(20)," +
                 "venueprice      INTEGER," +
                 " " +
                 "PRIMARY KEY (vid)" +

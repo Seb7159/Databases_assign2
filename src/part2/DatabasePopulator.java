@@ -14,7 +14,7 @@ public class DatabasePopulator {
             // Create values
             String nameTable = "'" + table + i + "'";
             String descriptionTable = "'Lorem ipsum and so on.'";
-            if ( table.equals("Menu") )
+            if ( table.equals("Venue") )
                 descriptionTable = nameTable;
             int costPrice = new Random().nextInt(100);
 
