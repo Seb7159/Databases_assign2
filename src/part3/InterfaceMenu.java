@@ -28,6 +28,7 @@ public class InterfaceMenu {
     * Print report for given party method
     */
     private static void printPartyReport(int partyNumber) throws SQLException {
+        boolean existsFlag = false;
         String getPartyStatement = "SELECT pid, name, vid, mid, eid, price, numberofguests FROM Party WHERE pid = " + partyNumber;
 
         PreparedStatement preparedStatementParty = dbConn.prepareStatement(getPartyStatement);
@@ -35,6 +36,7 @@ public class InterfaceMenu {
 
         // Get name, vid, mid, eid, price and number of guests
         while(resultSet.next()) {
+            existsFlag = true;
             String name = resultSet.getString(2);
             int vid = resultSet.getInt(3);
             int mid = resultSet.getInt(4);
@@ -90,6 +92,10 @@ public class InterfaceMenu {
             System.out.println("\n\n");
         }
 
+        // If data doesn't exist
+        if( existsFlag == false )
+            System.out.println("No rows found for this value!\n\n");
+
         // Return
         return;
     }
@@ -98,6 +104,8 @@ public class InterfaceMenu {
      * Print report for given menu item method
      */
     private static void printMenuItemReport(int menuNumber) throws SQLException {
+        boolean existsFlag = false;
+
         // Get description and cost price of menu
         String getPartyStatement = "SELECT mid, description, costprice FROM Menu WHERE mid = " + menuNumber;
 
@@ -108,6 +116,7 @@ public class InterfaceMenu {
         int price = 0;
 
         while(resultSet.next()) {
+            existsFlag = true;
             description = resultSet.getString(2);
             price = resultSet.getInt(3);
         }
@@ -145,6 +154,10 @@ public class InterfaceMenu {
         System.out.println(" guests number that used menu: " + sum);
         System.out.println("\n\n");
 
+        // If data doesn't exist
+        if( existsFlag == false )
+            System.out.println("No rows found for this value!\n\n");
+
         // Return
         return;
     }
@@ -153,6 +166,7 @@ public class InterfaceMenu {
     * Create new party method
     */
     private static void createParty() {
+        
 
         // Return
         return;
