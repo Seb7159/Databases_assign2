@@ -58,7 +58,7 @@ public class DatabaseCreator {
     private static boolean createVenueTable(Connection dbConn) {
         String createTableStatement = "CREATE TABLE Venue (" +
                 "vid             INTEGER     NOT NULL UNIQUE," +
-                "name            CHAR(20)," +
+                "name            CHAR(40)," +
                 "venueprice      INTEGER," +
                 " " +
                 "PRIMARY KEY (vid)" +
@@ -82,7 +82,7 @@ public class DatabaseCreator {
     private static boolean createPartyTable(Connection dbConn) {
         String createTableStatement = "CREATE TABLE Party (" +
                 "pid            INTEGER     NOT NULL UNIQUE," +
-                "name           CHAR(20)," +
+                "name           CHAR(40)," +
                 "mid            INTEGER," +
                 "vid            INTEGER," +
                 "eid            INTEGER," +

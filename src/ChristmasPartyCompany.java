@@ -59,7 +59,7 @@ public class ChristmasPartyCompany {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Program has ended successfuly, have a great day!");
+        System.out.println("\n\nProgram has ended successfuly, have a great day!");
         return;
     }
 }
