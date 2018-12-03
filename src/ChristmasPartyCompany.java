@@ -3,6 +3,7 @@ import part2.*;
 import part3.*;
 
 import java.sql.*;
+import java.util.Scanner;
 import javax.sql.*;
 
 public class ChristmasPartyCompany {
@@ -15,15 +16,22 @@ public class ChristmasPartyCompany {
             ex.printStackTrace();
         }
 
+        String redoTables = "no";
+
         if ( conn != null ) {
             System.out.println("Database accessed!");
 
-            // Delete all tables to clear from previous examples
-            boolean deleteAllTables = DatabaseCreator.deleteAllTables(conn);
-            boolean createAllTables = DatabaseCreator.createAllTables(conn);
+            System.out.println("Would you like to recreate and repopulate the tables? ");
+            redoTables = new Scanner(System.in).nextLine();
 
-            if ( !createAllTables || !deleteAllTables ) {
-                return;
+            if ( redoTables.equals("yes")) {
+                // Delete all tables to clear from previous examples
+                boolean deleteAllTables = DatabaseCreator.deleteAllTables(conn);
+                boolean createAllTables = DatabaseCreator.createAllTables(conn);
+
+                if (!createAllTables || !deleteAllTables) {
+                    return;
+                }
             }
 
             // Else continue with 2nd part
@@ -37,14 +45,16 @@ public class ChristmasPartyCompany {
         // PART 2: Create and populate the database
         // Creation done in part 1
         // Populating the database
-        boolean populateTables = DatabasePopulator.populateTables(conn);
+        if ( redoTables.equals("yes")) {
+            boolean populateTables = DatabasePopulator.populateTables(conn);
 
-        // Check if tables were not populated TODO: populate with 10 sensitive data each table
-        if ( !populateTables ) {
-            System.out.println("Tables could not be populated.");
-            return;
-        } else {
-            System.out.println("Tables have been populated with random values!");
+            // Check if tables were not populated TODO: populate with 10 sensitive data each table
+            if (!populateTables) {
+                System.out.println("Tables could not be populated.");
+                return;
+            } else {
+                System.out.println("Tables have been populated with random values!");
+            }
         }
         // Else continue with 3rd part
 

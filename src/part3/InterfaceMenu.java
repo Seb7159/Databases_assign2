@@ -76,7 +76,7 @@ public class InterfaceMenu {
 
             // Calculate total cost price and net profit
             int total_cost_price = menu_price * noOfG + venue_price + ent_price;
-            int net_profit = menu_price * noOfG - (venue_price + ent_price);
+            int net_profit = price * noOfG - total_cost_price;
 
             // Display Report values
             System.out.println();
